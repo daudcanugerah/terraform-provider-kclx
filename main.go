@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	if err := providerserver.Serve(context.Background(), provider.New, providerserver.ServeOpts{
+	if err := providerserver.Serve(context.Background(), provider.New("1.0.0"), providerserver.ServeOpts{
 		Address: "registry.terraform.io/daudcanugerah/kclx",
 	}); err != nil {
 		log.Fatal(err.Error())

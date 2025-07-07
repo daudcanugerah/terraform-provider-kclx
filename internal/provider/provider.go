@@ -16,14 +16,18 @@ var _ provider.Provider = &kclProvider{}
 type kclProvider struct {
 	// Add provider configuration fields here
 	KclPath string
+	version string
 }
 
-func New() provider.Provider {
-	return &kclProvider{}
+func New(version string) func() provider.Provider {
+	return func() provider.Provider {
+		return &kclProvider{version: version}
+	}
 }
 
 func (p *kclProvider) Metadata(_ context.Context, _ provider.MetadataRequest, resp *provider.MetadataResponse) {
 	resp.TypeName = "kcl"
+	resp.Version = p.version
 }
 
 func (p *kclProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
